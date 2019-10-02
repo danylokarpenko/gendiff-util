@@ -18,7 +18,7 @@
    "author": "danylo karpenko",
    "license": "ISC",
    "bin": {
-      "gendiff": "./src/bin/gendiff.js"
+      "gendiff": "./dist/bin/gendiff.js"
    },
    "dependencies": {
       "commander": "^3.0.2",
