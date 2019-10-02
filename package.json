@@ -1,6 +1,6 @@
 {
    "name": "backend-project-lvl2-karpenko",
-   "version": "0.0.2",
+   "version": "0.0.3",
    "description": "Generate the difference between two files",
    "main": "index.js",
    "scripts": {
