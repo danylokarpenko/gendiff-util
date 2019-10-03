@@ -1,5 +1,7 @@
-const fs = require('fs');
-var _ = require('lodash'); 
+// const fs = require('fs');
+// var _ = require('lodash');
+import fs from 'fs';
+import _ from 'lodash';
 
 const genDiff = (pathToFile1, pathToFile2) => {
   const file1 = fs.readFileSync(pathToFile1);

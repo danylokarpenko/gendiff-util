@@ -1,4 +1,9 @@
-# Gendiff-util
+# gendiff-util
+[![Maintainability](https://api.codeclimate.com/v1/badges/2e5f18f035faa18c7b72/maintainability)](https://codeclimate.com/github/danylokarpenko/backend-project-lvl2/maintainability)
+
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2e5f18f035faa18c7b72/test_coverage)](https://codeclimate.com/github/danylokarpenko/backend-project-lvl2/test_coverage)
+
+
 This package is a CLI utility for generating diff between two config files.
 
 ## Installation
