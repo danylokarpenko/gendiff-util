@@ -1,5 +1,5 @@
 const fs = require('fs');
-var _ = require('lodash');
+var _ = require('lodash'); 
 
 const genDiff = (pathToFile1, pathToFile2) => {
   const file1 = fs.readFileSync(pathToFile1);

@@ -3,7 +3,7 @@ const program = require('commander');
 export default () => {
   program
       .description('Compares two configuration files and shows a difference.')
-      .version('0.0.1', '-V, --version', 'output the current version');
+      .version('0.0.4', '-V, --version', 'output the current version');
 
   program
     .option('-f, --format [type]', 'Output format')

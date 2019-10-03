@@ -1,7 +1,7 @@
 import genDiff from '../src/genDiff';
 
 test('genDiff', () => {
-  expect(genDiff('/home/danylo/Documents/jsonFiles/jsonBefore.json', '/home/danylo/Documents/jsonFiles/jsonAfter.json')).toBe('{
+  expect(genDiff('/home/danylo/Documents/jsonFiles/before.json', '/home/danylo/Documents/jsonFiles/after.json')).toBe('{
     host: hexlet.io
   + timeout: 20
   - timeout: 50
