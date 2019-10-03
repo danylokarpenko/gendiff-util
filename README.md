@@ -3,7 +3,7 @@
 
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2e5f18f035faa18c7b72/test_coverage)](https://codeclimate.com/github/danylokarpenko/backend-project-lvl2/test_coverage)
 
-
+[![Build Status](https://travis-ci.org/danylokarpenko/backend-project-lvl2.svg?branch=master)](https://travis-ci.org/danylokarpenko/backend-project-lvl2)
 This package is a CLI utility for generating diff between two config files.
 
 ## Installation
