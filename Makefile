@@ -4,3 +4,5 @@ build:
 	npx babel src --out-dir dist
 prepublishOnly:
 	npm run prepublishOnly
+lint:
+	./node_modules/.bin/eslint ./
