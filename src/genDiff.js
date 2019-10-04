@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { readFileSync } from 'fs';
 import _ from 'lodash';
 
 const stats = {
@@ -6,7 +6,7 @@ const stats = {
     return `     ${name}: ${oldValue}`;
   },
   'changed': ({name, oldValue, newValue}) => {
-    return `   + ${name}: ${oldValue}\n   - ${name}: ${newValue}`;
+    return `   + ${name}: ${newValue}\n   - ${name}: ${oldValue}`;
   },
   'deleted': ({name, oldValue}) => {
     return `   - ${name}: ${oldValue}`;
@@ -27,8 +27,8 @@ const parse = (obj1, obj2, key) => {
 }
 
 export default (pathToFile1, pathToFile2) => {
-  const file1 = fs.readFileSync(pathToFile1);
-  const file2 = fs.readFileSync(pathToFile2);
+  const file1 = readFileSync(pathToFile1);
+  const file2 = readFileSync(pathToFile2);
 
   const jsonBefore = JSON.parse(file1);
   const jsonAfter = JSON.parse(file2);
