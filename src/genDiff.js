@@ -1,33 +1,45 @@
-// const fs = require('fs');
-// var _ = require('lodash');
 import fs from 'fs';
 import _ from 'lodash';
 
-const genDiff = (pathToFile1, pathToFile2) => {
+const stats = {
+  'same': ({name, oldValue}) => {
+    return `     ${name}: ${oldValue}`;
+  },
+  'changed': ({name, oldValue, newValue}) => {
+    return `   + ${name}: ${oldValue}\n   - ${name}: ${newValue}`;
+  },
+  'deleted': ({name, oldValue}) => {
+    return `   - ${name}: ${oldValue}`;
+  },
+  'added': ({name, newValue}) => {
+    return `   + ${name}: ${newValue}`;
+  }
+}
+
+const parse = (obj1, obj2, key) => {
+  let type;
+  if (_.has(obj1, key) ^ _.has(obj2, key)) {
+    type = _.has(obj1, key) ? 'deleted' : 'added';
+  } else {
+    type = obj1[key] === obj2[key] ? 'same' : 'changed';
+  }
+  return { type, name: key, oldValue: obj1[key], newValue: obj2[key]};
+}
+
+export default (pathToFile1, pathToFile2) => {
   const file1 = fs.readFileSync(pathToFile1);
   const file2 = fs.readFileSync(pathToFile2);
 
   const jsonBefore = JSON.parse(file1);
   const jsonAfter = JSON.parse(file2);
 
-  const arrayOfStrings1 = Object.keys(jsonBefore).reduce((acc, key) => {
-    if (_.has(jsonAfter, key)) {
-      return jsonBefore[key] === jsonAfter[key] ?
-        [...acc, [' ', `${key}: ${jsonBefore[key]}`]] :
-        [...acc, ['+', `${key}: ${jsonAfter[key]}`], ['-', `${key}: ${jsonBefore[key]}`]];
-    } else {
-      return [...acc, ['-', `${key}: ${jsonBefore[key]}`]];
-    }
-  }, []);
+  const keySet = new Set(Object.keys(jsonBefore).concat(Object.keys(jsonAfter)));
+  const keys = Array.from(keySet);
 
-  const arrayOfStrings2 = Object.keys(jsonAfter).reduce((acc, key) => {
-    if (!_.has(jsonBefore, key)) {
-      return [...acc, ['+', `${key}: ${jsonAfter[key]}`]];
-    } else return acc;
-  }, []);
+  const data = keys.map(key => {
+    const parsedData = parse(jsonBefore, jsonAfter, key);
+    return stats[parsedData.type](parsedData);
+  });
 
-  const result = `{\n${arrayOfStrings1.concat(arrayOfStrings2).map(current => `   ${current.join(' ')}`).join('\n')}\n}`;
-  return result;
-}
-
-export default genDiff;
+  return `{\n${data.join('\n')}\n}`;
+};
