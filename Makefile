@@ -8,5 +8,5 @@ lint:
 	./node_modules/.bin/eslint ./
 test:
 	npm run test
-test -w:
+watch:
 	npm test -- --watch
