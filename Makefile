@@ -1,5 +1,6 @@
 start:
-	npx ./__tests__/__fixtures__/compareFiles/before.json ./__tests__/__fixtures__/compareFiles/after.json
+	dist/bin/gendiff.js ./__tests__/__fixtures__/compareFiles/before.json ./__tests__/__fixtures__/compareFiles/after.json
+	dist/bin/gendiff.js ./__tests__/__fixtures__/compareFiles/before.yaml ./__tests__/__fixtures__/compareFiles/after.yaml
 build:
 	npx babel src --out-dir dist
 prepublishOnly:

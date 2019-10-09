@@ -11,8 +11,7 @@ const parsers = {
 export default (configPath) => {
   const ext = path.extname(configPath);
   const data = fs.readFileSync(configPath);
-
   const parse = parsers[ext];
-  
+  // console.log(ext, parse(data));
   return parse(data);
 }
