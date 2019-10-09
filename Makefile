@@ -1,5 +1,5 @@
 start:
-	npx ./dist/bin/gendiff.js ./__tests__/__fixtures__/received/before.json ./__tests__/__fixtures__/received//after.json
+	npx ./__tests__/__fixtures__/compareFiles/before.json ./__tests__/__fixtures__/compareFiles/after.json
 build:
 	npx babel src --out-dir dist
 prepublishOnly:

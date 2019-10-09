@@ -1,7 +1,8 @@
 import { readFileSync } from 'fs';
 import _ from 'lodash';
+import parseData from './parsers/parser';
 
-const stats = {
+const actions = {
   'same': ({name, oldValue}) => {
     return `     ${name}: ${oldValue}`;
   },
@@ -16,7 +17,7 @@ const stats = {
   }
 }
 
-const parse = (obj1, obj2, key) => {
+const parseValue = (obj1, obj2, key) => {
   let type;
   if (_.has(obj1, key) ^ _.has(obj2, key)) {
     type = _.has(obj1, key) ? 'deleted' : 'added';
@@ -26,19 +27,16 @@ const parse = (obj1, obj2, key) => {
   return { type, name: key, oldValue: obj1[key], newValue: obj2[key]};
 }
 
-export default (pathToFile1, pathToFile2) => {
-  const file1 = readFileSync(pathToFile1);
-  const file2 = readFileSync(pathToFile2);
+export default (configPath1, configPath2) => {
+  const data1 = parseData(configPath1);
+  const data2 = parseData(configPath2);
 
-  const jsonBefore = JSON.parse(file1);
-  const jsonAfter = JSON.parse(file2);
-
-  const keySet = new Set(Object.keys(jsonBefore).concat(Object.keys(jsonAfter)));
+  const keySet = new Set(Object.keys(data1).concat(Object.keys(data2)));
   const keys = Array.from(keySet);
 
   const data = keys.map(key => {
-    const parsedData = parse(jsonBefore, jsonAfter, key);
-    return stats[parsedData.type](parsedData);
+    const parsedValue = parseValue(data1, data2, key);
+    return actions[parsedValue.type](parsedValue);
   });
 
   return `{\n${data.join('\n')}\n}`;
