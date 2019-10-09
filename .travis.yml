@@ -5,11 +5,9 @@ language: node_js
 node_js:
   - node
 before_install:
-  #- nvm install                         # Install node version from .nvmrc
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
 install:
-  - bundle install --without production --path=${BUNDLE_PATH:-vendor/bundle}  # Install ruby gems, excluding production only gems such as unicorn (already present by default in Travis)
   - npm install
 before_script: bundle exec rake db:create db:migrate
 script:
