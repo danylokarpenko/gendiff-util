@@ -1,34 +1,22 @@
 import { readFileSync } from 'fs';
 import { trim } from 'lodash';
 import genDiff from '../../src/';
+import path from 'path';
 
+const beforeJson = './__tests__/__fixtures__/compareFiles/before.json';
+const afterJson = './__tests__/__fixtures__/compareFiles/after.json';
 
-describe('json format', () => {
-  const expacted = trim(readFileSync('./__tests__/__fixtures__/expacted/flatJson.diff', 'utf8'));
-  test('Plain json file', () => {
-    const data = genDiff(
-      './__tests__/__fixtures__/compareFiles/before.json',
-      './__tests__/__fixtures__/compareFiles/after.json'
-    );
-    expect(data).toBe(expacted);
-  });
+const beforeYaml = './__tests__/__fixtures__/compareFiles/before.yaml';
+const afterIniYaml = './__tests__/__fixtures__/compareFiles/after.yaml';
 
-  test('Must be wrong', () => {
-    const data = genDiff(
-      './__tests__/__fixtures__/compareFiles/before.json',
-      './__tests__/__fixtures__/compareFiles/before.json'
-    );
-    expect(data).not.toBe(expacted);
-  });
-});
+const beforeIni = './__tests__/__fixtures__/compareFiles/before.ini';
+const afterIni = './__tests__/__fixtures__/compareFiles/after.ini';
 
-describe('yaml format', () => {
-  const expacted = trim(readFileSync('./__tests__/__fixtures__/expacted/flatJson.diff', 'utf8'));
-  test('Plain yaml file', () => {
-    const data = genDiff(
-      './__tests__/__fixtures__/compareFiles/before.yaml',
-      './__tests__/__fixtures__/compareFiles/after.yaml'
-    );
-    expect(data).toBe(expacted);
-  });
-})
+const expected = trim(readFileSync('/home/danylo/backend-project-lvl2/__tests__/__fixtures__/expacted/flatJson.diff', 'utf8'));
+
+test.each([[beforeJson, afterJson, expected], [beforeYaml, afterIniYaml, expected], [beforeIni, afterIni, expected]])(
+  `Test %#: different formats`,
+  (firstPath, secondPath, expected) => {
+    expect(genDiff(firstPath, secondPath)).toBe(expected);
+  },
+);

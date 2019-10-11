@@ -1,17 +1,18 @@
 import fs from 'fs';
 import yaml from 'js-yaml';
+import ini from 'ini';
 import path from 'path';
-// import { parse } from 'ini';
 
 const parsers = {
   '.json': JSON.parse,
-  '.yaml': yaml.safeLoad
+  '.yaml': yaml.safeLoad,
+  '.ini': ini.parse
 }
 
 export default (configPath) => {
   const ext = path.extname(configPath);
-  const data = fs.readFileSync(configPath);
+  const data = fs.readFileSync(configPath, 'utf-8');
+
   const parse = parsers[ext];
-  // console.log(ext, parse(data));
   return parse(data);
 }
