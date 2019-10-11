@@ -12,7 +12,7 @@ const afterIniYaml = './__tests__/__fixtures__/compareFiles/after.yaml';
 const beforeIni = './__tests__/__fixtures__/compareFiles/before.ini';
 const afterIni = './__tests__/__fixtures__/compareFiles/after.ini';
 
-const expected = trim(readFileSync('/home/danylo/backend-project-lvl2/__tests__/__fixtures__/expacted/flatJson.diff', 'utf8'));
+const expected = trim(readFileSync('./__tests__/__fixtures__/expacted/flatJson.diff', 'utf8'));
 
 test.each([[beforeJson, afterJson, expected], [beforeYaml, afterIniYaml, expected], [beforeIni, afterIni, expected]])(
   `Test %#: different formats`,
