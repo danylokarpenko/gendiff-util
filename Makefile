@@ -2,14 +2,15 @@ start:
 	dist/bin/gendiff.js ./__tests__/__fixtures__/compareFiles/before.json ./__tests__/__fixtures__/compareFiles/after.json
 	dist/bin/gendiff.js ./__tests__/__fixtures__/compareFiles/before.yaml ./__tests__/__fixtures__/compareFiles/after.yaml
 build:
-	npx babel src --out-dir dist
+	rm -rf dist
+	npm run build
 prepublishOnly:
 	npm run prepublishOnly
 lint:
 	./node_modules/.bin/eslint ./
 test:
 	npm run test
-watch:
+test-watch:
 	npm test -- --watch
-covegare:
+test-covegare:
 	npx jest --coverage
