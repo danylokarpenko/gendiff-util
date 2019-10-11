@@ -14,6 +14,5 @@ export default (configPath) => {
   const data = fs.readFileSync(configPath, 'utf-8');
 
   const parse = parsers[ext];
-  console.log(parse(data));
   return parse(data);
 }
