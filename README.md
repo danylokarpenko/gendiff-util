@@ -5,6 +5,7 @@
 
 [![Build Status](https://travis-ci.org/danylokarpenko/backend-project-lvl2.svg?branch=master)](https://travis-ci.org/danylokarpenko/backend-project-lvl2)
 
+`This package is a CLI utility for generating diff between two config files.`
 
 ## Installation
 ```
@@ -33,7 +34,8 @@ Options:
 
 #### .ini format:
 [![asciicast](https://asciinema.org/a/halqGzbZNiZLawujyVH7FsYbI.svg)](https://asciinema.org/a/halqGzbZNiZLawujyVH7FsYbI)
-This package is a CLI utility for generating diff between two config files.
+
+
 
 **Config 1:**
 ```

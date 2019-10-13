@@ -1,7 +1,8 @@
 import { readFileSync } from 'fs';
 import _ from 'lodash';
-import parseData from './parsers/parser';
+import parse from './parsers';
 
+//renderring
 const actions = {
   'same': ({name, oldValue}) => {
     return `     ${name}: ${oldValue}`;
@@ -17,6 +18,7 @@ const actions = {
   }
 }
 
+// diff process
 const parseValue = (obj1, obj2, key) => {
   let type;
   if (_.has(obj1, key) ^ _.has(obj2, key)) {
@@ -28,9 +30,10 @@ const parseValue = (obj1, obj2, key) => {
 }
 
 export default (configPath1, configPath2) => {
-  const data1 = parseData(configPath1);
-  const data2 = parseData(configPath2);
-
+  const data1 = parse(configPath1);
+  const data2 = parse(configPath2);
+  console.log(data1);
+  console.log(true);
   const keySet = new Set(Object.keys(data1).concat(Object.keys(data2)));
   const keys = Array.from(keySet);
 
