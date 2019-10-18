@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 import { trim } from 'lodash';
-import genDiff from '../../src/';
+import genDiff from '../src/';
 import path from 'path';
 
 const beforeJson = './__tests__/__fixtures__/json/flat-before.json';

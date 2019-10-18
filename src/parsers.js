@@ -13,6 +13,6 @@ export default (configPath) => {
   const ext = path.extname(configPath);
   const data = fs.readFileSync(configPath, 'utf-8');
   const parse = parsers[ext];
-  console.log(1, parse(data));
+
   return parse(data);
 }

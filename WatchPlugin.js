@@ -4,14 +4,16 @@ module.exports = class WatchPlugin {
   }
 
   apply(jestHooks) {
-    jestHooks.shouldRunTestSuite(testSuiteInfo => {
-        return testSuiteInfo.testPath.includes('/home/danylo/backend-project-lvl2/__tests__/integration/genDiff.test.js');
-      });
+    // jestHooks.shouldRunTestSuite(testSuiteInfo => {
+    //     return testSuiteInfo.testPath.includes('__tests__/genDiff.deep.test.js');
+    //   });
 
       jestHooks.onTestRunComplete(results => {
-        console.log(`Passed Tests: ${results.numPassedTests}`);
+        console.log(`Passed Tests: ${results.numPassedTests}/${results.numTotalTests}`);
+        console.log(`Failed Tests: ${results.numFailedTests}/${results.numTotalTests}`);
         this._hasSnapshotFailure = results.snapshot.failure;
     });
+
     jestHooks.onFileChange(({projects}) => {
       this._projects = projects;
     });
@@ -19,14 +21,14 @@ module.exports = class WatchPlugin {
 
   getUsageInfo(globalConfig) {
     return {
-      key: 'r',
-      prompt: 'Run only "genDeff.test.js" test',
+      key: 'f',
+      prompt: 'Run only "genDeff.flat.test.js" test',
     };
   }
 
   run(globalConfig, updateConfigAndRun) {
     updateConfigAndRun({
-      testPathPattern: './__tests__/integration/genDiff.test.js'
+      testPathPattern: './__tests__/genDiff.flat.test.js'
     })
     return Promise.resolve(false);
   }
