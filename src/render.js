@@ -18,35 +18,19 @@ const objToStr = (obj, level) => {
   })
   return `{\n${makeIndent('  ', level + 2)}${arrOfPairsStr.join(`\n${makeIndent('  ', level + 2)}`)}\n${makeIndent('  ', level + 1)}}`
 }
-// const ast = [
-  // {
-  //   key,
-  //   type,
-  //   oldValue,
-  //   newValue,
-  //   children: (ast: [{},{}]),
-  // },
-  // {
-  //   key,
-  //   type,
-  //   oldValue,
-  //   newValue,
-  //   children,
-  // },
-// ]
 
 const renderByType = {
   'unchanged': (key, values, level) => {
-    return [`${makeIndent('  ', level)}  ${key}: ${values.oldValue}`];
+    return [`${makeIndent('  ', level)}${indicators.unchanged}${key}: ${values.oldValue}`];
   },
   'changed': (key, values, level) => {
-    return [`${makeIndent('  ', level)}+ ${key}: ${values.newValue}`, `${makeIndent('  ', level)}- ${key}: ${values.oldValue}`];
+    return [`${makeIndent('  ', level)}${indicators.added}${key}: ${values.newValue}`, `${makeIndent('  ', level)}${indicators.deleted}${key}: ${values.oldValue}`];
   },
   'deleted': (key, values, level) => {
-    return [`${makeIndent('  ', level)}- ${key}: ${values.oldValue}`];
+    return [`${makeIndent('  ', level)}${indicators.deleted}${key}: ${values.oldValue}`];
   },
   'added': (key, values, level) => {
-    return [`${makeIndent('  ', level)}+ ${key}: ${values.newValue}`];
+    return [`${makeIndent('  ', level)}${indicators.added}${key}: ${values.newValue}`];
   }
 }
 
