@@ -12,7 +12,7 @@ const objToStr = (obj, level) => {
   const keys = Object.keys(obj);
   const arrOfPairsStr = keys.map(key => {
     if (typeof obj[key] === 'object') {
-      return `${indicators['unchanged']}${key}: ${objToStr(obj[key], level + 2)}`
+      return `${indicators['unchanged']}${key}: ${objToStr(obj[key], level + 2)}`;
     }
     return `${indicators['unchanged']}${key}: ${obj[key]}`;
   })
