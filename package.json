@@ -1,6 +1,6 @@
 {
    "name": "gendiff-util",
-   "version": "0.0.3",
+   "version": "0.1.0",
    "description": "Generate the difference between two files",
    "main": "./dist/index.js",
    "scripts": {
