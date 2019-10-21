@@ -31,18 +31,25 @@ Options:
 [![asciicast](https://asciinema.org/a/ioFAFje4RtY7MvN6Zuwipw18q.svg)](https://asciinema.org/a/ioFAFje4RtY7MvN6Zuwipw18q)
 **Deep data:**
 [![asciicast](https://asciinema.org/a/HRRI8WNl5NuZXHMomqUna9Quu.svg)](https://asciinema.org/a/HRRI8WNl5NuZXHMomqUna9Quu)
+
+`gendiff -f plain`
+[![asciicast](https://asciinema.org/a/05EKxvdkJ6SrwBQwkII5IJmt1.svg)](https://asciinema.org/a/05EKxvdkJ6SrwBQwkII5IJmt1)
 #### .yaml format:
 **Flat data:**
 [![asciicast](https://asciinema.org/a/qZcnDjlw8v4sWMYL6kAOZCEWd.svg)](https://asciinema.org/a/qZcnDjlw8v4sWMYL6kAOZCEWd)
 **Deep data:**
 [![asciicast](https://asciinema.org/a/8KMTbIHHB5RXwrI3xiYp0Mpl5.svg)](https://asciinema.org/a/8KMTbIHHB5RXwrI3xiYp0Mpl5)
+
+`gendiff -f plain`
+[![asciicast](https://asciinema.org/a/MexKdOdm89RWdsWY00K7nFhEE.svg)](https://asciinema.org/a/MexKdOdm89RWdsWY00K7nFhEE)
 #### .ini format:
 **Flat data:**
 [![asciicast](https://asciinema.org/a/halqGzbZNiZLawujyVH7FsYbI.svg)](https://asciinema.org/a/halqGzbZNiZLawujyVH7FsYbI)
 **Deep data:**
 [![asciicast](https://asciinema.org/a/U200qwfQc4rTzPh40SULi5ZKc.svg)](https://asciinema.org/a/U200qwfQc4rTzPh40SULi5ZKc)
 
-
+`gendiff -f plain`
+[![asciicast](https://asciinema.org/a/EGouCaaoJQIO5Nfl1cDqW8lSd.svg)](https://asciinema.org/a/EGouCaaoJQIO5Nfl1cDqW8lSd)
 **Config 1:**
 ```
 {

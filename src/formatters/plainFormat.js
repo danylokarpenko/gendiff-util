@@ -23,7 +23,9 @@ const stringify = value => {
 const astToString = (data, root) => {
   const diff = data.reduce((acc, {key, type, values, children}) => {
     if (!values) {
-      return root === undefined ? [...acc, astToString(children, key)] : [...acc, astToString(children, root + `.${key}`)];
+      return root === undefined ?
+        [...acc, astToString(children, key)] :
+        [...acc, astToString(children, root + `.${key}`)];
     }
     if (type === 'unchanged') return acc;
     return root === undefined ?
