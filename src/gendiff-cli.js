@@ -1,11 +1,12 @@
 import parse from './parsers';
 import buildAst from './astBuilder';
-import astToString from './render'
+import astToString from './formatters';
 
-export default (configPath1, configPath2) => {
+export default (configPath1, configPath2, format) => {
   const data1 = parse(configPath1);
   const data2 = parse(configPath2);
 
-  const dataAst = buildAst(data1, data2);
-  return astToString(dataAst);
+  const ast = buildAst(data1, data2);
+  // console.log(ast);
+  return astToString(format)(ast);
 };

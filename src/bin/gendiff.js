@@ -8,10 +8,12 @@ program
     .version('0.0.1', '-V, --version', 'output the current version');
 
 program
-  .option('-f, --format [type]', 'Output format', 'plain')
+  .option('-f, --format [type]', 'Add output format with otional type')
   .arguments('<firstConfig> <secondConfig>')
-  .action(function(firstConfig, secondConfig, type) {
-    const generetedDiff = genDiff(firstConfig, secondConfig);
+  .action(function(firstConfig, secondConfig, options) {
+    const format = options.format || 'json';
+
+    const generetedDiff = genDiff(firstConfig, secondConfig, format);
     console.log(generetedDiff);
   });
 

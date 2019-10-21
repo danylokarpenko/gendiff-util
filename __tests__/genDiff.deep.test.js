@@ -12,11 +12,19 @@ const afterIniYaml = './__tests__/__fixtures__/yaml/deep-after.yaml';
 const beforeIni = './__tests__/__fixtures__/ini/deep-before.ini';
 const afterIni = '__tests__/__fixtures__/ini/deep-after.ini';
 
-const expected = trim(readFileSync('./__tests__/__fixtures__/expacted/deepData.diff', 'utf8'));
 
-test.each([[beforeJson, afterJson, expected], [beforeYaml, afterIniYaml, expected], [beforeIni, afterIni, expected]])(
-  'Test %#: deep data',
-  (firstPath, secondPath, expected) => {
-    expect(genDiff(firstPath, secondPath)).toBe(expected);
+test.each([[beforeJson, afterJson], [beforeYaml, afterIniYaml], [beforeIni, afterIni]])(
+  'Test %#: json format',
+  (firstPath, secondPath) => {
+    const expected = trim(readFileSync('./__tests__/__fixtures__/expacted/deepData.diff', 'utf8'));
+    expect(genDiff(firstPath, secondPath, 'json')).toBe(expected);
   },
 );
+
+test.each([[beforeJson, afterJson], [beforeYaml, afterIniYaml], [beforeIni, afterIni]])(
+  'Test %#: plain format',
+  (firstPath, secondPath) => {
+    const expected = trim(readFileSync('./__tests__/__fixtures__/expacted/deepData.plainFormat.diff', 'utf8'));
+    expect(genDiff(firstPath, secondPath, 'plain')).toBe(expected);
+  },
+)

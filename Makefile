@@ -3,7 +3,7 @@ run-flat:
 	dist/bin/gendiff.js ./__tests__/__fixtures__/yaml/flat-before.yaml ./__tests__/__fixtures__/yaml/flat-after.yaml
 	dist/bin/gendiff.js ./__tests__/__fixtures__/ini/flat-before.ini ./__tests__/__fixtures__/ini/flat-after.ini
 run-deep:
-	dist/bin/gendiff.js ./__tests__/__fixtures__/json/deep-before.json ./__tests__/__fixtures__/json/deep-after.json
+	dist/bin/gendiff.js -f plain ./__tests__/__fixtures__/json/deep-before.json ./__tests__/__fixtures__/json/deep-after.json
 build:
 	rm -rf dist
 	npm run build
