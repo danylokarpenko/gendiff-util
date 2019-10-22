@@ -39,6 +39,10 @@ Options:
 
 [![asciicast](https://asciinema.org/a/05EKxvdkJ6SrwBQwkII5IJmt1.svg)](https://asciinema.org/a/05EKxvdkJ6SrwBQwkII5IJmt1)
 
+`-f json`
+
+[![asciicast](https://asciinema.org/a/eYiK8pN59ekGOFPC3b383M2f2.svg)](https://asciinema.org/a/eYiK8pN59ekGOFPC3b383M2f2)
+
 ### .yaml files:
 **Flat data:**
 
@@ -52,6 +56,10 @@ Options:
 
 [![asciicast](https://asciinema.org/a/MexKdOdm89RWdsWY00K7nFhEE.svg)](https://asciinema.org/a/MexKdOdm89RWdsWY00K7nFhEE)
 
+`-f json`
+
+[![asciicast](https://asciinema.org/a/pAMYurbUPSIpQNhBvGl14VxJx.svg)](https://asciinema.org/a/pAMYurbUPSIpQNhBvGl14VxJx)
+
 ### .ini files:
 **Flat data:**
 
@@ -64,6 +72,10 @@ Options:
 `gendiff -f plain`
 
 [![asciicast](https://asciinema.org/a/EGouCaaoJQIO5Nfl1cDqW8lSd.svg)](https://asciinema.org/a/EGouCaaoJQIO5Nfl1cDqW8lSd)
+
+`-f json`
+
+[![asciicast](https://asciinema.org/a/ZGqzBqgZOEcDGBK3UehnwcHBC.svg)](https://asciinema.org/a/ZGqzBqgZOEcDGBK3UehnwcHBC)
 
 **Config 1:**
 
