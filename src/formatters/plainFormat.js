@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 const renderByType = {
   'changed' : (key, values) => {
     return `Property '${key}' was updated. From ${stringify(values.oldValue)} to ${stringify(values.newValue)}`;

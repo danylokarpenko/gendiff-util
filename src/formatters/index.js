@@ -1,10 +1,11 @@
 import toJsonFormat from './jsonFormat';
 import toPlainFormat from './plainFormat';
+import toDiffFormat from './diffFormat';
 
-export default (format) => {
-  if (format === 'json') {
-    return toJsonFormat;
-  } else if (format === 'plain') {
-    return toPlainFormat;
-  }
+const formates = {
+  'diff': toDiffFormat,
+  'plain': toPlainFormat,
+  'json': toJsonFormat
 }
+
+export default format => formates[format];

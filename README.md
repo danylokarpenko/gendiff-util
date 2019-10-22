@@ -26,7 +26,7 @@ Options:
 
 ### Example:
 
-#### .json format:
+### .json files:
 **Flat data:**
 
 [![asciicast](https://asciinema.org/a/ioFAFje4RtY7MvN6Zuwipw18q.svg)](https://asciinema.org/a/ioFAFje4RtY7MvN6Zuwipw18q)
@@ -39,7 +39,7 @@ Options:
 
 [![asciicast](https://asciinema.org/a/05EKxvdkJ6SrwBQwkII5IJmt1.svg)](https://asciinema.org/a/05EKxvdkJ6SrwBQwkII5IJmt1)
 
-#### .yaml format:
+### .yaml files:
 **Flat data:**
 
 [![asciicast](https://asciinema.org/a/qZcnDjlw8v4sWMYL6kAOZCEWd.svg)](https://asciinema.org/a/qZcnDjlw8v4sWMYL6kAOZCEWd)
@@ -52,7 +52,7 @@ Options:
 
 [![asciicast](https://asciinema.org/a/MexKdOdm89RWdsWY00K7nFhEE.svg)](https://asciinema.org/a/MexKdOdm89RWdsWY00K7nFhEE)
 
-#### .ini format:
+### .ini files:
 **Flat data:**
 
 [![asciicast](https://asciinema.org/a/halqGzbZNiZLawujyVH7FsYbI.svg)](https://asciinema.org/a/halqGzbZNiZLawujyVH7FsYbI)

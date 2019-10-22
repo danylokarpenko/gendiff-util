@@ -11,7 +11,7 @@ program
   .option('-f, --format [type]', 'Add output format with otional type')
   .arguments('<firstConfig> <secondConfig>')
   .action(function(firstConfig, secondConfig, options) {
-    const format = options.format || 'json';
+    const format = options.format || 'diff';
 
     const generetedDiff = genDiff(firstConfig, secondConfig, format);
     console.log(generetedDiff);

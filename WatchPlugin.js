@@ -4,10 +4,6 @@ module.exports = class WatchPlugin {
   }
 
   apply(jestHooks) {
-    // jestHooks.shouldRunTestSuite(testSuiteInfo => {
-    //     return testSuiteInfo.testPath.includes('__tests__/genDiff.deep.test.js');
-    //   });
-
       jestHooks.onTestRunComplete(results => {
         console.log(`Passed Tests: ${results.numPassedTests}/${results.numTotalTests}`);
         console.log(`Failed Tests: ${results.numFailedTests}/${results.numTotalTests}`);
