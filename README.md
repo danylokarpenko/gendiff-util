@@ -36,7 +36,7 @@ Options:
 [![asciicast](https://asciinema.org/a/HRRI8WNl5NuZXHMomqUna9Quu.svg)](https://asciinema.org/a/HRRI8WNl5NuZXHMomqUna9Quu)
 
 `gendiff -f plain`
-
+ 
 [![asciicast](https://asciinema.org/a/05EKxvdkJ6SrwBQwkII5IJmt1.svg)](https://asciinema.org/a/05EKxvdkJ6SrwBQwkII5IJmt1)
 
 `-f json`
