@@ -1,11 +1,11 @@
-import toJsonFormat from './jsonFormat';
-import toPlainFormat from './plainFormat';
-import toDiffFormat from './diffFormat';
+import renderToJson from './json';
+import renderToPlain from './plain';
+import renderToSimple from './simple';
 
 const formates = {
-  'diff': toDiffFormat,
-  'plain': toPlainFormat,
-  'json': toJsonFormat
+  'simple': renderToSimple,
+  'plain': renderToPlain,
+  'json': renderToJson
 }
 
 export default format => formates[format];

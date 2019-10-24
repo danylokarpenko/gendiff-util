@@ -13,10 +13,10 @@ const afterIni = '__tests__/__fixtures__/ini/flat-after.ini';
 
 
 test.each([[beforeJson, afterJson], [beforeYaml, afterIniYaml], [beforeIni, afterIni]])(
-  `Test %#: diff format`,
+  `Test %#: simple format`,
   (firstPath, secondPath) => {
     const expected = trim(readFileSync('./__tests__/__fixtures__/expacted/flatData.diff', 'utf8'));
-    expect(genDiff(firstPath, secondPath, 'diff')).toBe(expected);
+    expect(genDiff(firstPath, secondPath, 'simple')).toBe(expected);
   },
 );
 

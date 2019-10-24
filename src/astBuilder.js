@@ -1,12 +1,20 @@
 import _ from 'lodash';
 
-const diff = [
+const nodeBuilders = [
   {
     check: (first, second, key) => {
-      return _.has(first, key) && _.has(second, key) && first[key] === second[key];
+      return !_.has(first, key);
     },
     make: (first, second, key) => {
-      return { key, type: 'unchanged', values: { oldValue: first[key], newValue: second[key] } }
+      return { key, type: 'added', values: { newValue: second[key] } }
+    }
+  },
+  {
+    check: (first, second, key) => {
+      return !_.has(second, key);
+    },
+    make: (first, second, key) => {
+      return { key, type: 'deleted', values: { oldValue: first[key]} }
     }
   },
   {
@@ -19,31 +27,22 @@ const diff = [
   },
   {
     check: (first, second, key) => {
-      return !_.has(first, key) && _.has(second, key);
+      return first[key] === second[key];
     },
     make: (first, second, key) => {
-      return { key, type: 'added', values: { oldValue: first[key], newValue: second[key] } }
-    }
-  },
-  {
-    check: (first, second, key) => {
-      return _.has(first, key) && !_.has(second, key);
-    },
-    make: (first, second, key) => {
-      return { key, type: 'deleted', values: { oldValue: first[key], newValue: second[key] } }
+      return { key, type: 'unchanged', values: { oldValue: first[key], newValue: second[key] } }
     }
   },
 ];
 
-const buildAst = (data1, data2) => {
-  const keySet = new Set(Object.keys(data1).concat(Object.keys(data2)));
-  const keys = Array.from(keySet);
+const buildAst = (obj1, obj2) => {
+  const keys = Object.keys({...obj1, ...obj2});
 
   const ast = keys.map(key => {
-    if ( (typeof data1[key] === 'object' && data1[key] !== null) && (typeof data2[key] === 'object' && data2[key] !== null)) {
-      return {key, type: 'unchanged', children: buildAst(data1[key], data2[key])}
+    if ( _.isPlainObject(obj1[key]) && _.isPlainObject(obj2[key]) ) {
+      return { key, type: 'unchanged', children: buildAst(obj1[key], obj2[key]) }
     }
-    return diff.find(method => method.check(data1, data2, key)).make(data1, data2, key);
+    return nodeBuilders.find(method => method.check(obj1, obj2, key)).make(obj1, obj2, key);
   });
   return ast;
 };
