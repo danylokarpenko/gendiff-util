@@ -4,15 +4,16 @@ import ini from 'ini';
 import path from 'path';
 
 const parser = {
-  '.json': JSON.parse,
-  '.yaml': yaml.safeLoad,
-  '.ini': ini.parse
-}
+  json: JSON.parse,
+  yaml: yaml.safeLoad,
+  ini: ini.parse,
+};
 
 export default (configPath) => {
-  const ext = path.extname(configPath);
   const data = fs.readFileSync(configPath, 'utf-8');
-  const parse = parser[ext];
+
+  const dataType = path.extname(configPath).replace(/\./g, '');
+  const parse = parser[dataType];
 
   return parse(data);
-}
+};

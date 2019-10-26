@@ -1,53 +1,55 @@
 import _ from 'lodash';
 
 const indicators = {
-  'unchanged': '  ',
-  'deleted': '- ',
-  'added': '+ ',
-}
+  unchanged: '  ',
+  deleted: '- ',
+  added: '+ ',
+  father: '  ',
+};
 
-const makeIndent = lvl => '  '.repeat(lvl);
+const makeIndent = (lvl) => '  '.repeat(lvl);
 
 const stringifyObj = (obj, level) => {
   const keys = Object.keys(obj);
   const pairs = keys.map(key => {
     if (typeof obj[key] === 'object') {
-      return `${indicators['unchanged']}${key}: ${stringifyObj(obj[key], level + 2)}`;
-    }
-    return `${indicators['unchanged']}${key}: ${obj[key]}`;
-  })
+      return `${indicators.unchanged}${key}: ${stringifyObj(obj[key], level + 2)}`;
+    };
+    return `${indicators.unchanged}${key}: ${obj[key]}`;
+  });
   return `{\n${makeIndent(level + 2)}${pairs.join(`\n${makeIndent(level + 2)}`)}\n${makeIndent(level + 1)}}`
-}
+};
 
 const renders = {
-  'unchanged': (key, values, level) => {
-    return [`${makeIndent(level)}${indicators.unchanged}${key}: ${values.oldValue}`];
+  unchanged: (key, oldValue, newValue, level) => {
+    return [`${makeIndent(level)}${indicators.unchanged}${key}: ${oldValue}`];
   },
-  'changed': (key, values, level) => {
-    return [`${makeIndent(level)}${indicators.added}${key}: ${values.newValue}`, `${makeIndent(level)}${indicators.deleted}${key}: ${values.oldValue}`];
+  changed: (key, oldValue, newValue, level) => {
+    return [`${makeIndent(level)}${indicators.added}${key}: ${newValue}`, `${makeIndent(level)}${indicators.deleted}${key}: ${oldValue}`];
   },
-  'deleted': (key, values, level) => {
-    return [`${makeIndent(level)}${indicators.deleted}${key}: ${values.oldValue}`];
+  deleted: (key, oldValue, newValue, level) => {
+    return [`${makeIndent(level)}${indicators.deleted}${key}: ${oldValue}`];
   },
-  'added': (key, values, level) => {
-    return [`${makeIndent(level)}${indicators.added}${key}: ${values.newValue}`];
-  }
-}
+  added: (key, oldValue, newValue, level) => {
+    return [`${makeIndent(level)}${indicators.added}${key}: ${newValue}`];
+  },
+  father: (key, oldValue, newValue, level, children) => {
+    return [`${makeIndent(level)}${indicators.father}${key}: ${render(children, level + 2)}`];
+  },
+};
 
 const render = (ast, level = 1) => {
-  const differences = ast.reduce((acc, {key, type, values, children}) => {
-    if (children) {
-      const processedValues = { oldValue: render(children, level + 2) };
-      return [...acc, ...renders[type](key, processedValues, level)];
-    }
-    if ( _.isPlainObject(values.oldValue) ) {
-      values.oldValue = stringifyObj(values.oldValue, level);
-    } else if ( _.isPlainObject(values.newValue) ) {
-      values.newValue = stringifyObj(values.newValue, level);
-    }
-    return [...acc, ...renders[type](key, values, level)];
+  const differences = ast.reduce((acc, {key, type, oldValue, newValue, children}) => {
+
+    if (_.isPlainObject(oldValue)) {
+      oldValue = stringifyObj(oldValue, level);
+    } else if (_.isPlainObject(newValue)) {
+      newValue = stringifyObj(newValue, level);
+    };
+
+    return [...acc, ...renders[type](key, oldValue, newValue, level, children)];
   }, []);
-  return `{\n${differences.join(`\n`)}\n${makeIndent(level - 1)}}`;
-}
+  return `{\n${differences.join('\n')}\n${makeIndent(level - 1)}}`;
+};
 
 export default render;

@@ -2,48 +2,42 @@ import _ from 'lodash';
 
 const nodeBuilders = [
   {
-    check: (first, second, key) => {
-      return !_.has(first, key);
-    },
+    check: (first, second, key) => _.isPlainObject(first[key]) && _.isPlainObject(second[key]),
     make: (first, second, key) => {
-      return { key, type: 'added', values: { newValue: second[key] } }
-    }
+      return { key, type: 'father', children: buildAst(first[key], second[key]) }
+    },
   },
   {
-    check: (first, second, key) => {
-      return !_.has(second, key);
-    },
+    check: (first, second, key) => !_.has(first, key),
     make: (first, second, key) => {
-      return { key, type: 'deleted', values: { oldValue: first[key]} }
-    }
+      return { key, type: 'added', newValue: second[key] }
+    },
   },
   {
-    check: (first, second, key) => {
-      return _.has(first, key) && _.has(second, key) && first[key] !== second[key];
-    },
+    check: (first, second, key) => !_.has(second, key),
     make: (first, second, key) => {
-      return { key, type: 'changed', values: { oldValue: first[key], newValue: second[key] } }
-    }
+      return { key, type: 'deleted', oldValue: first[key] };
+    },
   },
   {
-    check: (first, second, key) => {
-      return first[key] === second[key];
-    },
+    check: (first, second, key) => _.has(first, key) && _.has(second, key) && first[key] !== second[key],
     make: (first, second, key) => {
-      return { key, type: 'unchanged', values: { oldValue: first[key], newValue: second[key] } }
-    }
+      return { key, type: 'changed', oldValue: first[key], newValue: second[key] };
+    },
+  },
+  {
+    check: (first, second, key) => first[key] === second[key],
+    make: (first, second, key) => {
+      return { key, type: 'unchanged', oldValue: first[key], newValue: second[key] };
+    },
   },
 ];
 
 const buildAst = (obj1, obj2) => {
-  const keys = Object.keys({...obj1, ...obj2});
+  const keys = _.union(Object.keys(obj1), Object.keys(obj2));
 
-  const ast = keys.map(key => {
-    if ( _.isPlainObject(obj1[key]) && _.isPlainObject(obj2[key]) ) {
-      return { key, type: 'unchanged', children: buildAst(obj1[key], obj2[key]) }
-    }
-    return nodeBuilders.find(method => method.check(obj1, obj2, key)).make(obj1, obj2, key);
-  });
+  const ast = keys.map(key => nodeBuilders.find(builder => builder.check(obj1, obj2, key)).make(obj1, obj2, key));
+
   return ast;
 };
 
