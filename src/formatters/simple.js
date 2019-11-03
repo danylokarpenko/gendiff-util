@@ -23,23 +23,17 @@ const stringifyObj = (obj, level) => {
 const stringify = (value, level) => (_.isPlainObject(value) ? stringifyObj(value, level) : value);
 
 const renders = {
-  unchanged: (key, oldValue, newValue, level) => [`${makeIndent(level)}${indicators.unchanged}${key}: ${oldValue}`],
-  changed: (key, oldValue, newValue, level) => [
-    `${makeIndent(level)}${indicators.added}${key}: ${stringify(newValue, level)}`,
-    `${makeIndent(level)}${indicators.deleted}${key}: ${stringify(oldValue, level)}`,
-  ],
-  deleted: (key, oldValue, newValue, level) => [`${makeIndent(level)}${indicators.deleted}${key}: ${stringify(oldValue, level)}`],
-  added: (key, oldValue, newValue, level) => [`${makeIndent(level)}${indicators.added}${key}: ${(stringify(newValue, level))}`],
-  father: (key, oldValue, newValue, level, children) => [`${makeIndent(level)}${indicators.father}${key}: ${children}`],
+  unchanged: (key, oldValue, newValue, level) => `${makeIndent(level)}${indicators.unchanged}${key}: ${oldValue}`,
+  changed: (key, oldValue, newValue, level) => `${makeIndent(level)}${indicators.added}${key}: ${stringify(newValue, level)}\n${makeIndent(level)}${indicators.deleted}${key}: ${stringify(oldValue, level)}`,
+  deleted: (key, oldValue, newValue, level) => `${makeIndent(level)}${indicators.deleted}${key}: ${stringify(oldValue, level)}`,
+  added: (key, oldValue, newValue, level) => `${makeIndent(level)}${indicators.added}${key}: ${(stringify(newValue, level))}`,
+  father: (key, oldValue, newValue, level, children) => `${makeIndent(level)}${indicators.father}${key}: ${children}`,
 };
 
 const render = (ast, level = 1) => {
-  const differences = ast.reduce((acc, {
+  const differences = ast.map(({
     key, type, oldValue, newValue, children,
-  }) => [
-    ...acc,
-    ...renders[type](key, oldValue, newValue, level, render(children || [], level + 2)),
-  ], []);
+  }) => renders[type](key, oldValue, newValue, level, render(children || [], level + 2)));
   return `{\n${differences.join('\n')}\n${makeIndent(level - 1)}}`;
 };
 
