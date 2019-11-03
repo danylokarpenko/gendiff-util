@@ -15,10 +15,7 @@ const render = (data, root) => {
   }) => {
     if (type === 'unchanged') return acc;
     const newKey = root === undefined ? key : `${root}.${key}`;
-    if (type === 'father') {
-      return [...acc, renders[type](newKey, oldValue, newValue, render(children, newKey))];
-    }
-    return [...acc, renders[type](newKey, oldValue, newValue, children)];
+    return [...acc, renders[type](newKey, oldValue, newValue, render(children || [], newKey))];
   }, []);
   return `${differences.join('\n')}`;
 };
