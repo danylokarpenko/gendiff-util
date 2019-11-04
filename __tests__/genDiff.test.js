@@ -1,32 +1,43 @@
 import { readFileSync } from 'fs';
+import path from 'path';
 import genDiff from '../src';
 
-const filePaths = {
-  json: [`${__dirname}/__fixtures__/before.json`, `${__dirname}/__fixtures__/after.json`],
-  yaml: [`${__dirname}/__fixtures__/before.yaml`, `${__dirname}/__fixtures__/after.yaml`],
-  ini: [`${__dirname}/__fixtures__/before.ini`, `${__dirname}/__fixtures__/after.ini`],
-};
+const formats = ['json', 'yaml', 'ini'];
 
-test.each([filePaths.json, filePaths.yaml, filePaths.ini])(
+const getFixPath = (fileName) => path.join(__dirname, '__fixtures__', fileName);
+
+test.each(formats)(
   'Simple format: test #%#',
-  (firstPath, secondPath) => {
-    const expected = readFileSync(`${__dirname}/__fixtures__/simpleFormat.diff`, 'utf8').trim();
-    expect(genDiff(firstPath, secondPath, 'simple')).toBe(expected);
+  (format) => {
+    const beforeFilePath = getFixPath(`before.${format}`);
+    const afterFilePAth = getFixPath(`after.${format}`);
+
+    const actual = genDiff(beforeFilePath, afterFilePAth, 'simple');
+    const expected = readFileSync(getFixPath('simpleResult.diff'), 'utf8');
+    expect(actual).toBe(expected.trim());
   },
 );
 
-test.each([filePaths.json, filePaths.yaml, filePaths.ini])(
+test.each(formats)(
   'Plain format: test #%#',
-  (firstPath, secondPath) => {
-    const expected = readFileSync(`${__dirname}/__fixtures__/plainFormat.diff`, 'utf8').trim();
-    expect(genDiff(firstPath, secondPath, 'plain')).toBe(expected);
+  (format) => {
+    const beforeFilePath = getFixPath(`before.${format}`);
+    const afterFilePAth = getFixPath(`after.${format}`);
+
+    const actual = genDiff(beforeFilePath, afterFilePAth, 'plain');
+    const expected = readFileSync(getFixPath('plainResult.diff'), 'utf8');
+    expect(actual).toBe(expected.trim());
   },
 );
 
-test.each([filePaths.json, filePaths.yaml, filePaths.ini])(
+test.each(formats)(
   'Json format: test #%#',
-  (firstPath, secondPath) => {
-    const expected = readFileSync(`${__dirname}/__fixtures__/jsonFormat.diff`, 'utf8').trim();
-    expect(genDiff(firstPath, secondPath, 'json')).toBe(expected);
+  (format) => {
+    const beforeFilePath = getFixPath(`before.${format}`);
+    const afterFilePAth = getFixPath(`after.${format}`);
+
+    const actual = genDiff(beforeFilePath, afterFilePAth, 'json');
+    const expected = readFileSync(getFixPath('jsonResult.diff'), 'utf8');
+    expect(actual).toBe(expected.trim());
   },
 );
