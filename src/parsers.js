@@ -13,7 +13,7 @@ const getParsedData = (data, type) => parsers[type](data);
 
 export default (configPath) => {
   const data = fs.readFileSync(configPath, 'utf-8');
-  const dataType = path.extname(configPath).replace(/\./g, '');
+  const dataType = path.extname(configPath).slice(1);
 
   const result = getParsedData(data, dataType);
 
