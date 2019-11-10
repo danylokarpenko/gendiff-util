@@ -6,17 +6,16 @@ const renders = {
   changed: (key, oldValue, newValue) => `Property '${key}' was updated. From ${stringifyValue(oldValue)} to ${stringifyValue(newValue)}`,
   added: (key, oldValue, newValue) => `Property '${key}' was added with value: ${stringifyValue(newValue)}`,
   deleted: (key) => `Property '${key}' was removed`,
-  father: (key, oldValue, newValue, children) => children,
+  father: (key, oldValue, newValue, children, processChildren) => processChildren(children, key),
 };
 
-const render = (data, root) => {
-  const differences = data.reduce((acc, {
+const render = (ast, root) => {
+  const differences = ast.filter(({ type }) => type !== 'unchanged').map(({
     key, type, oldValue, newValue, children,
   }) => {
-    if (type === 'unchanged') return acc;
     const newKey = root === undefined ? key : `${root}.${key}`;
-    return [...acc, renders[type](newKey, oldValue, newValue, render(children || [], newKey))];
-  }, []);
+    return renders[type](newKey, oldValue, newValue, children, render);
+  });
   return `${differences.join('\n')}`;
 };
 
