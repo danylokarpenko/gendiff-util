@@ -27,13 +27,13 @@ const renders = {
   changed: (key, oldValue, newValue, level) => `${makeIndent(level)}${indicators.added}${key}: ${stringify(newValue, level)}\n${makeIndent(level)}${indicators.deleted}${key}: ${stringify(oldValue, level)}`,
   deleted: (key, oldValue, newValue, level) => `${makeIndent(level)}${indicators.deleted}${key}: ${stringify(oldValue, level)}`,
   added: (key, oldValue, newValue, level) => `${makeIndent(level)}${indicators.added}${key}: ${(stringify(newValue, level))}`,
-  father: (key, oldValue, newValue, level, children) => `${makeIndent(level)}${indicators.father}${key}: ${children}`,
+  father: (key, oldValue, newValue, level, children, processChildren) => `${makeIndent(level)}${indicators.father}${key}: ${processChildren(children, level + 2)}`,
 };
 
 const render = (ast, level = 1) => {
   const differences = ast.map(({
     key, type, oldValue, newValue, children,
-  }) => renders[type](key, oldValue, newValue, level, render(children || [], level + 2)));
+  }) => renders[type](key, oldValue, newValue, level, children, render));
   return `{\n${differences.join('\n')}\n${makeIndent(level - 1)}}`;
 };
 
